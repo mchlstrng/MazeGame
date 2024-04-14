@@ -14,6 +14,8 @@ namespace MazeGame
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            _graphics.PreferredBackBufferWidth = 800;  // set this to the desired width
+            _graphics.PreferredBackBufferHeight = 600; // set this to the desired height
         }
 
         protected override void Initialize()
