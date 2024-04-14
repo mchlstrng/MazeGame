@@ -8,6 +8,9 @@ namespace MazeGame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Maze maze;
+        private Player player;
+        private InputManager inputManager;
 
         public MazeGame()
         {
@@ -20,7 +23,12 @@ namespace MazeGame
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            maze = new Maze(10, 10);
+            var playerPosition = new Vector2(1.5f, 1.5f);
+            player = new Player(playerPosition);
+            inputManager = new InputManager();
+
+            maze.GenerateMaze();
 
             base.Initialize();
         }
@@ -28,8 +36,7 @@ namespace MazeGame
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            maze.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -37,7 +44,7 @@ namespace MazeGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+
 
             base.Update(gameTime);
         }
@@ -46,7 +53,9 @@ namespace MazeGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            maze.Draw(_spriteBatch, player);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
